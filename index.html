@@ -3,171 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartList AI - Classifieds & Directory</title>
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <title>SmartList AI App</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { bg-color: #f8fafc; background: #f4f6f9; color: #1e293b; padding-bottom: 40px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #f3f4f6; color: #1f2937; padding-bottom: 30px; }
         
-        /* Premium Header */
-        nav { background: #1e3a8a; color: white; padding: 15px 20px; display: flex; justify-content: space-between; items-center: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        nav h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
-        nav h1 span { color: #facc15; }
-        .post-btn { background: #facc15; color: #1e3a8a; border: none; padding: 10px 18px; font-weight: 700; border-radius: 25px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.15); transition: 0.2s; }
-        .post-btn:active { transform: scale(0.95); }
+        /* Top Navigation Header Bar */
+        .navbar { background-color: #1e3a8a; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .navbar h1 { font-size: 20px; font-weight: bold; cursor: pointer; }
+        .navbar h1 span { color: #facc15; }
+        .post-btn { background-color: #facc15; color: #1e3a8a; border: none; padding: 8px 16px; font-weight: bold; border-radius: 20px; cursor: pointer; font-size: 14px; }
 
-        main { max-width: 600px; margin: 0 auto; padding: 16px; }
-        h2 { font-size: 18px; font-weight: 700; margin: 20px 0 12px 0; color: #334155; display: flex; justify-content: space-between; align-items: center; }
+        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
+        h2 { font-size: 16px; font-weight: bold; margin: 20px 0 10px 0; color: #4b5563; }
         
-        /* Professional Category Grid */
-        .category-grid { display: grid; grid-template-cols: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
-        .cat-card { background: white; padding: 12px 6px; rounded-radius: 12px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: 0.2s; }
-        .cat-card:active { background: #f1f5f9; }
-        .cat-card i { font-size: 20px; color: #2563eb; margin-bottom: 6px; display: block; }
-        .cat-card p { font-size: 11px; font-weight: 600; color: #475569; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* Clean 3-Column Grid for Categories */
+        .grid-system { display: grid; grid-template-cols: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .category-box { background-color: white; padding: 15px 5px; border-radius: 8px; border: 1px solid #e5e7eb; text-align: center; cursor: pointer; font-weight: bold; font-size: 12px; color: #1e3a8a; }
+        .category-box:active { background-color: #e5e7eb; }
 
-        /* Modern Form Container */
-        .form-card { background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px; }
-        .form-control { w-width: 100%; width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; background: #fff; transition: 0.2s; }
-        .form-control:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+        /* Form Layout styling */
+        .form-box { background-color: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; }
+        .form-row { margin-bottom: 15px; }
+        .form-row label { display: block; font-size: 13px; font-weight: bold; color: #4b5563; margin-bottom: 5px; }
+        .input-field { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none; }
         
-        /* Modern Gallery Uploader Box */
-        .upload-box { border: 2px dashed #cbd5e1; background: #f8fafc; padding: 25px; text-align: center; border-radius: 12px; cursor: pointer; position: relative; margin-bottom: 16px; }
-        .upload-box i { font-size: 32px; color: #94a3b8; margin-bottom: 8px; }
-        .upload-box p { font-size: 13px; color: #64748b; font-weight: 500; }
-        .upload-box span { font-size: 11px; color: #94a3b8; display: block; margin-top: 2px; }
-        #image-preview { width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px; display: none; margin-top: 10px; }
+        /* Upload Area styling */
+        .upload-area { border: 2px dashed #cbd5e1; background-color: #f8fafc; padding: 25px; text-align: center; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; color: #4b5563; font-size: 14px; }
+        #image-preview { width: 100%; max-height: 180px; object-fit: cover; border-radius: 6px; display: none; margin-top: 10px; }
 
-        .submit-btn { width: 100%; background: #10b981; color: white; border: none; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(16,185,129,0.2); }
-        .submit-btn:active { background: #059669; }
-        
-        .ai-badge { background: #eff6ff; color: #1d4ed8; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; margin-bottom: 15px; display: none; align-items: center; gap: 8px; border: 1px solid #bfdbfe; }
-        .hidden { display: none !important; }
-        .refresh-btn { background: none; border: none; color: #2563eb; font-weight: 600; font-size: 13px; cursor: pointer; }
+        /* AI Scanning Status Badge */
+        .ai-loading-status { display: none; background-color: #e0f2fe; color: #0369a1; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; border: 1px solid #bae6fd; }
+
+        .submit-action { width: 100%; background-color: #10b981; color: white; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .submit-action:active { background-color: #059669; }
+        .hidden-layout { display: none !important; }
+        .close-btn { background: none; border: none; font-size: 16px; font-weight: bold; color: #ef4444; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Beautiful Native Header -->
-    <nav>
-        <h1 onclick="showSection('browse')">Smart<span>List</span></h1>
-        <button class="post-btn" onclick="showSection('post')">
-            <i class="fa-solid fa-circle-plus"></i> Post Ad
-        </button>
-    </nav>
+    <!-- Header navigation bar -->
+    <div class="navbar">
+        <h1 onclick="showView('browse')">Smart<span>List</span></h1>
+        <button class="post-btn" onclick="showView('post')">+ Post Ad</button>
+    </div>
 
-    <main>
-        <!-- BROWSE WINDOW -->
-        <div id="browse-section">
+    <div class="container">
+        <!-- BROWSE WINDOW VIEW -->
+        <div id="view-browse">
             <h2>Browse Categories</h2>
-            <div id="category-container" class="category-grid"></div>
+            <div class="grid-system">
+                <div class="category-box" onclick="filterData('property')">🏢 Property</div>
+                <div class="category-box" onclick="filterData('fashion')">👕 Fashion</div>
+                <div class="category-box" onclick="filterData('footwear')">👟 Footwear</div>
+                <div class="category-box" onclick="filterData('services')">🤝 Services</div>
+                <div class="category-box" onclick="filterData('loans')">💰 Loans</div>
+                <div class="category-box" onclick="filterData('cars')">🚗 Cars</div>
+                <div class="category-box" onclick="filterData('mobiles')">📱 Mobiles</div>
+                <div class="category-box" onclick="filterData('plumber')">🔧 Plumber</div>
+                <div class="category-box" onclick="filterData('maid')">🧹 Maid</div>
+                <div class="category-box" onclick="filterData('security')">🛡️ Security</div>
+                <div class="category-box" onclick="filterData('shopkeeper')">🏪 Shopkeeper</div>
+                <div class="category-box" onclick="filterData('wholesale')">📦 Wholesale</div>
+            </div>
 
-            <h2>Recent Advertisements <button class="refresh-btn" onclick="loadAds()">Refresh</button></h2>
-            <div id="ads-grid">
-                <!-- Live items populate dynamically here -->
+            <h2>Recent Advertisements</h2>
+            <div id="ads-grid" style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px; margin-top: 10px;">
+                No advertisements available yet. Tap "+ Post Ad" to create one!
             </div>
         </div>
 
-        <!-- POST AD WINDOW (WITH GALLERY WORKFLOW) -->
-        <div id="post-section" class="hidden">
+        <!-- POST AD FORM VIEW -->
+        <div id="view-post" class="hidden-layout">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                 <h2 style="margin:0;">Create Advertisement</h2>
-                <button onclick="showSection('browse')" style="background:none; border:none; font-size:20px; color:#64748b;"><i class="fa-solid fa-xmark"></i></button>
+                <button class="close-btn" onclick="showView('browse')">Cancel X</button>
             </div>
 
-            <div class="form-card">
-                <!-- Gallery Interaction Panel -->
-                <div class="upload-box" onclick="document.getElementById('photo-input').click()">
-                    <i class="fa-solid fa-image"></i>
-                    <p>Select Photo from Gallery</p>
-                    <span>AI auto-fills title, category & price</span>
-                    <input type="file" id="photo-input" accept="image/*" style="display:none;" onchange="processAIImage(event)">
-                    <img id="image-preview" alt="Preview">
+            <div class="form-box">
+                <!-- Gallery Picker Elements -->
+                <div class="upload-area" onclick="document.getElementById('gallery-input').click()">
+                    📸 Select Photo From Gallery
+                    <input type="file" id="gallery-input" accept="image/*" style="display:none;" onchange="processImageWithAI(event)">
+                    <img id="image-preview" alt="Selected Image Preview">
                 </div>
 
-                <div id="ai-status" class="ai-badge">
-                    <i class="fa-solid fa-circle-notch fa-spin"></i> Smart AI is analyzing your listing details...
+                <!-- Live AI Scanner Status Notification Box -->
+                <div id="ai-loading" class="ai-loading-status">
+                    ⏳ AI is scanning your photo... Auto-filling details...
                 </div>
 
-                <form id="ad-form" onsubmit="handleFormSubmit(event)">
-                    <div class="form-group">
+                <form onsubmit="saveAdForm(event)">
+                    <div class="form-row">
                         <label>Listing Title / Business Name</label>
-                        <input type="text" id="form-name" required class="form-control" placeholder="e.g. 2 BHK Apartment, Plumber Service">
+                        <input type="text" id="form-name" required class="input-field" placeholder="e.g. 2 BHK Flat, Professional Plumber">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-row">
                         <label>Category</label>
-                        <select id="form-category" required class="form-control">
-                            <!-- Populated dynamically -->
+                        <select id="form-category" required class="input-field">
+                            <option value="">Select Category</option>
+                            <option value="property">Property</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="footwear">Footwear</option>
+                            <option value="services">Services</option>
+                            <option value="loans">Loans</option>
+                            <option value="cars">Cars</option>
+                            <option value="mobiles">Mobiles</option>
+                            <option value="plumber">Plumber</option>
+                            <option value="maid">Maid</option>
+                            <option value="security">Security</option>
+                            <option value="shopkeeper">Shopkeeper</option>
+                            <option value="wholesale">Wholesale</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Price or Service Rate (₹)</label>
-                        <input type="text" id="form-price" required class="form-control" placeholder="e.g. 15,000 / Fixed Rate">
+                    <div class="form-row">
+                        <label>Price / Service Fees (₹)</label>
+                        <input type="text" id="form-price" required class="input-field" placeholder="e.g. 500 / Hr or 12,000">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-row">
                         <label>WhatsApp Number</label>
-                        <input type="tel" id="form-whatsapp" required class="form-control" placeholder="e.g. 919876543210">
+                        <input type="tel" id="form-whatsapp" required class="input-field" placeholder="e.g. 919876543210">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-row">
                         <label>Address / Location</label>
-                        <input type="text" id="form-address" required class="form-control" placeholder="City, Area Name">
+                        <input type="text" id="form-address" required class="input-field" placeholder="City name, Area">
                     </div>
 
-                    <button type="submit" class="submit-btn">
-                        <i class="fa-solid fa-paper-plane"></i> Publish Advertisement
-                    </button>
+                    <button type="submit" class="submit-action">Publish Ad Now</button>
                 </form>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
+        // CONFIGURATION PARAMETERS
         const CLOUDFLARE_WORKER_URL = 'https://workers.dev'; 
-        const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY';
+        const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // <-- PUT YOUR GOOGLE AI STUDIO KEY HERE
 
-        const categories = [
-            { id: 'property', name: 'Property', icon: 'fa-building' },
-            { id: 'fashion', name: 'Fashion', icon: 'fa-shirt' },
-            { id: 'footwear', name: 'Footwear', icon: 'fa-shoe-prints' },
-            { id: 'personal service', name: 'Services', icon: 'fa-handshake' },
-            { id: 'loan', name: 'Loans', icon: 'fa-money-bill-transfer' },
-            { id: 'cars', name: 'Cars/Bikes', icon: 'fa-car' },
-            { id: 'mobile', name: 'Gadgets', icon: 'fa-mobile-screen' },
-            { id: 'plumber service', name: 'Plumber', icon: 'fa-wrench' },
-            { id: 'maid services', name: 'Maid', icon: 'fa-broom' },
-            { id: 'security guard', name: 'Security', icon: 'fa-shield-halved' },
-            { id: 'shopkeeper', name: 'Shopkeeper', icon: 'fa-store' },
-            { id: 'wholesaler', name: 'Wholesale', icon: 'fa-boxes-stacked' }
-        ];
-
-        window.onload = () => {
-            const catGrid = document.getElementById('category-container');
-            const catSelect = document.getElementById('form-category');
-            
-            categories.forEach(cat => {
-                catGrid.innerHTML += `
-                    <div class="cat-card" onclick="alert('Filtering by ${cat.name}')">
-                        <i class="fa-solid ${cat.icon}"></i>
-                        <p>${cat.name}</p>
-                    </div>`;
-                catSelect.innerHTML += `<option value="${cat.id}">${cat.name}</option>`;
-            });
-        };
-
-        function showSection(section) {
-            document.getElementById('browse-section').classList.toggle('hidden', section !== 'browse');
-            document.getElementById('post-section').classList.toggle('hidden', section !== 'post');
+        function showView(target) {
+            if (target === 'browse') {
+                document.getElementById('view-browse').classList.remove('hidden-layout');
+                document.getElementById('view-post').classList.add('hidden-layout');
+            } else {
+                document.getElementById('view-browse').classList.add('hidden-layout');
+                document.getElementById('view-post').classList.remove('hidden-layout');
+            }
         }
 
-        function processAIImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        // AI Scanner Execution Logic
+        async function processImageWithAI(event) {
+            const input = event.target;
+            if (!input.files || !input.files[0]) return;
 
+            const file = input.files[0];
+
+            // 1. Show the image preview instantly
             const reader = new FileReader();
             reader.onload = function(e) {
+                const img = document.getElementById('image-preview');
+                img.src = e.target.result;
+                img.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+
+            // 2. Show the "AI scanning" notification text box
+            const aiStatusBox = document.getElementById('ai-loading');
+            aiStatusBox.style.display = 'block';
+            aiStatusBox.innerText = "⏳ AI is scanning your photo... Auto-filling details...";
+
+            try {
